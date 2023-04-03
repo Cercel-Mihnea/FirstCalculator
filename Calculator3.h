@@ -22,4 +22,5 @@ void division(GtkWidget *widget, gpointer data);
 void click_symbol(GtkWidget *widget, gpointer data);
 float calculator(int first_number, int second_number, char data);
 void change_sign();
+void back();
 #endif

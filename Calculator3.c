@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <math.h>
 
 GtkWidget *entry;
 GtkEntryBuffer *buffer;
@@ -38,7 +39,7 @@ activate (GtkApplication *app)
     gtk_editable_set_editable(GTK_EDITABLE(entry), FALSE);
     gtk_widget_set_direction(entry, GTK_TEXT_DIR_RTL);
     gtk_entry_set_alignment(GTK_ENTRY(entry), 1);
-    gtk_widget_set_size_request(entry, 300, 100);  
+    gtk_widget_set_size_request(entry, 250, 100);  
     gtk_box_append(GTK_BOX(hbox1), entry);
     gtk_widget_show(entry);
 
@@ -49,6 +50,11 @@ activate (GtkApplication *app)
     gtk_widget_show(button);
     button = gtk_button_new_with_label("-/+");
     g_signal_connect(G_OBJECT(button), "clicked", G_CALLBACK(change_sign), NULL);
+    gtk_box_append(GTK_BOX(hbox1), button);
+    gtk_widget_set_size_request(button, 50, 100);  
+    gtk_widget_show(button);
+    button = gtk_button_new_with_label("<=");
+    g_signal_connect(G_OBJECT(button), "clicked", G_CALLBACK(back), NULL);
     gtk_box_append(GTK_BOX(hbox1), button);
     gtk_widget_set_size_request(button, 50, 100);  
     gtk_widget_show(button);
@@ -269,4 +275,9 @@ void change_sign()
       sprintf(result_string, "%.0f", second_number);
       gtk_entry_buffer_set_text(buffer, result_string, -1);
     }
+}
+void back()
+{
+  guint length = gtk_entry_buffer_get_length(buffer) - 1;
+  gtk_entry_buffer_delete_text(buffer, length, 1);
 }
